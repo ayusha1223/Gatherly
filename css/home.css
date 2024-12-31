@@ -1,0 +1,122 @@
+body, h1, p, ul, li, img, a, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Baskerville", serif;
+    background-image: url(../images/homeback.png);
+    color: #333;
+    background-size: cover;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: absolute;
+}
+.logo img {
+    width: 80px; 
+    height: 80px; 
+    border-radius: 50%; 
+    object-fit: cover;
+    display: block;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    padding-left: 160%;
+}
+nav ul li a {
+    text-decoration: none;
+    color: #814c24;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: serif;
+}
+main {
+    text-align: center;
+    padding: 40px 20px;
+}
+.events h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #7a6456;
+    margin-top: 40px;
+}
+.rectangle {
+    background-color: #faf6ec;
+    padding: 40px 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 40px auto;
+    width: 70%;
+    max-width: 1100px;
+    height: 240px;
+}
+.event-category {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+.event-category:hover {
+    transform: scale(1.1);
+    z-index: 10;
+}
+.event-category img {
+    width: 130%;
+    height: 130%;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.event-category button {
+    background-color: #c1a27e;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.event-category button:hover {
+    background-color: #b89770;
+    transform: scale(1.05);
+}
+.personal {
+    position: absolute;
+    left: 5%;
+    transform: translate(-50%, 0);
+}
+.professional {
+    z-index: 2;
+    margin: 0 10px;
+}
+.charity {
+    position: absolute;
+    right: 5%;
+    transform: translate(50%, 0);
+}
+footer {
+    margin-top: 45px;
+    font-size: 1.2em;
+    color: #c1a27e;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
