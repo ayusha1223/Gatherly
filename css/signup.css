@@ -95,6 +95,15 @@ input:focus {
     outline: none;
     box-shadow: 0 0 5px #6c4227;
 }
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+}
+input.error {
+    border: 1px solid red;
+}
 .submit-btn {
     width: 50%;
     background-color: #6c4227;
