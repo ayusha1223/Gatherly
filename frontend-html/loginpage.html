@@ -1,43 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gatherly - Welcome</title>
+    <title>Gatherly - Login</title>
     <link rel="stylesheet" href="../css/login.css">
 </head>
+
 <body>
     <div class="container">
         <header>
             <div class="logo">
                 <img src="../images/logo3.jpg" alt="Gatherly Logo">
             </div>
-                <div class="nav">
-                    <a href="./html/loginpage.html">
-                        <button>Login</button>
-                    </a>
-                    <a href="./html/signuppage.html">
-                        <button>Sign up</button>
-                    </a>
+            <div class="nav">
+                <a href="./loginpage.html"><button>Login</button></a>
+                <a href="./signuppage.html"><button>Sign up</button></a>
+            </div>
         </header>
         <div class="form-container">
-            <h1>WELCOME TO THE GATHERLY</h1>
-            <form>
+            <h1>WELCOME BACK</h1>
+            <form id="loginForm">
                 <div class="input-group">
                     <label for="email">Email</label>
-                    <input type="text" id="name" placeholder="Enter your email">
+                    <input type="text" id="email" placeholder="Enter your email">
+                    <span class="error-message" id="emailError"></span>
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" placeholder="Enter your password">
+                    <span class="error-message" id="passwordError"></span>
                 </div>
-                <button type="submit" class="submit-btn">Sign up</button>
+                <button type="submit" class="submit-btn">Login</button>
             </form>
         </div>
     </div>
+    <script src="../backend-res/login.js"></script>
 </body>
+
 </html>
-
-
-
-
