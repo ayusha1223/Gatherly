@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gatherly - Sign Up</title>
+    <link rel="stylesheet" href="../css/signup.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="../images/logo3.jpg" alt="Gatherly Logo">
+            </div>
+            <div class="nav">
+                <a href="../frontend-html/loginpage.html">
+                    <button>Login</button>
+                </a>
+                <a href="../frontend-html/signuppage.html">
+                    <button>Sign up</button>
+                </a>                
+            </div>
+        </header>
+        <div class="form-container">
+            <h1>CREATE NEW ACCOUNT</h1>
+            <form id="signupForm">
+                <div class="input-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" placeholder="First Name">
+                </div>
+                <div class="input-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" placeholder="Last Name">
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Email">
+                    <span class="error-message" id="emailError"></span>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Password">
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+                <div class="input-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirmpassword" placeholder="Confirm Password">
+                    <span class="error-message" id="confirmPasswordError"></span>
+                </div>
+                <button type="submit" class="submit-btn">Sign up</button>
+            </form>
+        </div>
+    </div>
+    <script src="../backend-res/signup.js"></script>
+</body>
+</html>
