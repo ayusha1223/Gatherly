@@ -86,10 +86,11 @@ const Signup = () => {
         <div className="logo">GATHERLY</div>
         <a href="/" className="home-button">Home</a>
       </header>
-
+      
       <div className="container">
         <div className="form-container">
           <h1>CREATE NEW ACCOUNT</h1>
+
           <form onSubmit={handleSubmit}>
             <div className="input-group">
               <label htmlFor="firstName">First Name</label>
@@ -132,12 +133,13 @@ const Signup = () => {
             <button type="submit" className="submit-btn">Sign up</button>
           </form>
 
+
           <div className="account-link">
             <p>Already have an account? <a href="/login">Login</a></p>
           </div>
         </div>
       </div>
-
+      
       <div className="contact-info">
         <p>📞 Phone: +123 456 7890</p>
         <p>✉ E-Mail: hello@gatherly.com</p>
@@ -146,4 +148,6 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+
+export default Signup;     
+
