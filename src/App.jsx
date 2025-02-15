@@ -5,8 +5,9 @@ import './App.css'
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/public/login";
-import Register from "./components/public/signup";
+import Signup from "./components/public/signup";
 import "./styles/login.css";
+import "./styles/signup.css";
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </Router>
   );

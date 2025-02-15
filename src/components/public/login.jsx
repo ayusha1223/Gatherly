@@ -1,17 +1,15 @@
 import React from 'react';
 import '../../styles/login.css';
-import loginBackground from '../../assets/images/logincard.jpeg'; 
+import '../../App.css';
 
 const Login = () => {
   return (
-    <div style={{ backgroundImage: `url(${loginBackground})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh' }}>
+    <div className="login-page">
       <header className="header">
-        <div className="logo">
-          <span>GATHERLY</span>
-          <a href="/" className="home-button">Home</a>
-        </div>
+        <div className="logo">GATHERLY</div>
+        <a href="/" className="home-button">Home</a>
       </header>
-      
+
       <div className="background">
         <div className="login-container">
           <h1>LOGIN TO YOUR ACCOUNT</h1>
@@ -24,6 +22,11 @@ const Login = () => {
               <label htmlFor="password">Password :</label>
               <input type="password" id="password" placeholder="Enter your password" />
             </div>
+
+            <p className="forgot-password">
+              <a href="/forgot-password">Forgot Password?</a>
+            </p>
+
             <button type="submit" className="login-btn">LOGIN</button>
           </form>
           <p className="signup-link">
@@ -41,3 +44,4 @@ const Login = () => {
 };
 
 export default Login;
+
