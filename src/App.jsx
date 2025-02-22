@@ -10,6 +10,8 @@ import "./styles/login.css";
 import "./styles/signup.css";
 import Terms from "./components/public/terms";
 import "./styles/terms.css";
+import Booking from "./components/public/booking";
+import "./styles/booking.css";
 
 
 function App() {
@@ -19,6 +21,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="/booking" element={<Booking />} />
       </Routes>
     </Router>
   );
