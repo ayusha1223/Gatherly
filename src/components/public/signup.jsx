@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { signup } from '../../services/authService.js'; // Import the signup function
 import '../../styles/signup.css';
 import '../../App.css';
 
@@ -13,7 +14,6 @@ const Signup = () => {
     termsAccepted: false,
   });
   const [errors, setErrors] = useState({});
-  const [existingEmails, setExistingEmails] = useState(["test@example.com", "user@gatherly.com"]);
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -33,8 +33,9 @@ const Signup = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Form Submitted')
     let validationErrors = {};
 
     Object.keys(formData).forEach((key) => {
@@ -45,10 +46,6 @@ const Signup = () => {
 
     if (!validateEmail(formData.email)) {
       validationErrors.email = 'Email must be a valid email address';
-    }
-
-    if (existingEmails.includes(formData.email)) {
-      validationErrors.email = 'Email is already in use';
     }
 
     if (!validatePassword(formData.password)) {
@@ -66,17 +63,19 @@ const Signup = () => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      alert('Signup Successful!');
-      setExistingEmails([...existingEmails, formData.email]);
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        termsAccepted: false,
-      });
-      navigate('/login');
+      try {
+        // Call the signup API
+        const response = await signup({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+        });
+        alert('Signup Successful!');
+        navigate('/login'); // Redirect to login page after successful signup
+      } catch (error) {
+        setErrors({ email: error.response?.data?.message || 'Signup failed. Please try again.' });
+      }
     }
   };
 
@@ -86,7 +85,7 @@ const Signup = () => {
         <div className="logo">GATHERLY</div>
         <a href="/" className="home-button">Home</a>
       </header>
-      
+
       <div className="container">
         <div className="form-container">
           <h1>CREATE NEW ACCOUNT</h1>
@@ -133,13 +132,12 @@ const Signup = () => {
             <button type="submit" className="submit-btn">Sign up</button>
           </form>
 
-
           <div className="account-link">
             <p>Already have an account? <a href="/login">Login</a></p>
           </div>
         </div>
       </div>
-      
+
       <div className="contact-info">
         <p>📞 Phone: +123 456 7890</p>
         <p>✉ E-Mail: hello@gatherly.com</p>
@@ -148,6 +146,4 @@ const Signup = () => {
   );
 };
 
-
-export default Signup;     
-
+export default Signup;

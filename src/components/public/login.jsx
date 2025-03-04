@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../../services/authService'; // Import the login function
 import '../../styles/login.css';
 import '../../App.css';
 
@@ -7,12 +9,13 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
   const validateEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess('');
@@ -32,10 +35,14 @@ const Login = () => {
       return;
     }
 
-    // Simulate successful login (You can replace this with API call)
-    setSuccess('Login successful!');
-    setEmail('');
-    setPassword('');
+    try {
+      // Call the login API
+      const response = await login({ email, password });
+      setSuccess('Login successful!');
+      navigate('/booking'); // Redirect to dashboard or another page
+    } catch (error) {
+      setError(error.response?.data?.message || 'Login failed. Please try again.');
+    }
   };
 
   return (
@@ -94,4 +101,3 @@ const Login = () => {
 };
 
 export default Login;
-
