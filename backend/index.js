@@ -10,8 +10,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/auth', authRoutes);
-app.use('/api/join-event', joinEventRoutes);
+app.use('/api/', authRoutes);
+app.use('/api/', joinEventRoutes);
 
 const PORT = process.env.PORT || 5000;
 
