@@ -2,13 +2,16 @@ import express from 'express';
 import cors from 'cors';
 import authRoutes from './src/routes/authRoutes.js';
 import sequelize from './src/config/db.js';
+import joinEventRoutes from './src/routes/joinEventRoutes.js';
 import User from './src/models/User.js';
+import JoinEvent from './src/models/JoinEvent.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/join-event', joinEventRoutes);
 
 const PORT = process.env.PORT || 5000;
 
