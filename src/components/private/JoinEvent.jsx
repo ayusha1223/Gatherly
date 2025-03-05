@@ -111,7 +111,7 @@ const JoinEvent = () => {
               Join
             </a>
             <a
-              href="/logout"
+              href="/login"
               className={activeNav === 'logout' ? 'active' : ''}
               onClick={() => setActiveNav('logout')}
             >
