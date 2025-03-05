@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { AlertCircle, CheckCircle } from 'lucide-react';
+import { AlertCircle, CheckCircle, Edit, Trash } from 'lucide-react';
+import "../../styles/joinevent.css"
 
 const JoinEvent = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,8 @@ const JoinEvent = () => {
   });
   const [toast, setToast] = useState(null);
   const [activeNav, setActiveNav] = useState('BookEvents');
+  const [events, setEvents] = useState([]);
+  const [editIndex, setEditIndex] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,18 +26,32 @@ const JoinEvent = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (Object.values(formData).every(field => field.trim() !== '')) {
-      setToast({
-        type: 'success',
-        message: 'Event registration successful!'
+      if (editIndex !== null) {
+        // Update existing event
+        const updatedEvents = [...events];
+        updatedEvents[editIndex] = formData;
+        setEvents(updatedEvents);
+        setToast({
+          type: 'success',
+          message: 'Event updated successfully!'
+        });
+        setEditIndex(null);
+      } else {
+        // Add new event
+        setEvents([...events, formData]);
+        setToast({
+          type: 'success',
+          message: 'Event registration successful!'
+        });
+      }
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        eventType: '',
+        message: ''
       });
       setTimeout(() => {
-        setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          eventType: '',
-          message: ''
-        });
         setToast(null);
       }, 3000);
     } else {
@@ -53,6 +70,24 @@ const JoinEvent = () => {
       eventType: '',
       message: ''
     });
+    setEditIndex(null);
+  };
+
+  const handleEdit = (index) => {
+    setFormData(events[index]);
+    setEditIndex(index);
+  };
+
+  const handleDelete = (index) => {
+    const updatedEvents = events.filter((_, i) => i !== index);
+    setEvents(updatedEvents);
+    setToast({
+      type: 'success',
+      message: 'Event deleted successfully!'
+    });
+    setTimeout(() => {
+      setToast(null);
+    }, 3000);
   };
 
   return (
@@ -61,22 +96,22 @@ const JoinEvent = () => {
         <div className="header-content">
           <div className="logo">GATHERLY</div>
           <nav className="main-nav">
-            <a 
-              href="/home" 
+            <a
+              href="/home"
               className={activeNav === 'Home' ? 'active' : ''}
               onClick={() => setActiveNav('Home')}
             >
               Home
             </a>
-            <a 
-              href="/join" 
+            <a
+              href="/join"
               className={activeNav === 'BookEvents' ? 'active' : ''}
               onClick={() => setActiveNav('BookEvents')}
             >
               Join
             </a>
-            <a 
-              href="/logout" 
+            <a
+              href="/logout"
               className={activeNav === 'logout' ? 'active' : ''}
               onClick={() => setActiveNav('logout')}
             >
@@ -160,10 +195,10 @@ const JoinEvent = () => {
               </div>
               <div className="form-actions">
                 <button type="submit" className="submit-button">
-                  Register for Event
+                  {editIndex !== null ? 'Update Event' : 'Register for Event'}
                 </button>
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   className="cancel-button"
                   onClick={handleCancel}
                 >
@@ -172,15 +207,48 @@ const JoinEvent = () => {
               </div>
             </form>
           </div>
+          <div className="events-list">
+            <h2>Registered Events</h2>
+            {events.length > 0 ? (
+              <ul>
+                {events.map((event, index) => (
+                  <li key={index}>
+                    <div className="event-details">
+                      <p><strong>Name:</strong> {event.firstName} {event.lastName}</p>
+                      <p><strong>Email:</strong> {event.email}</p>
+                      <p><strong>Event Type:</strong> {event.eventType}</p>
+                      <p><strong>Message:</strong> {event.message}</p>
+                    </div>
+                    <div className="event-actions">
+                      <button
+                        className="edit-button"
+                        onClick={() => handleEdit(index)}
+                      >
+                        <Edit size={16} />
+                      </button>
+                      <button
+                        className="delete-button"
+                        onClick={() => handleDelete(index)}
+                      >
+                        <Trash size={16} />
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No events registered yet.</p>
+            )}
+          </div>
         </div>
       </div>
-      
+
       {toast && (
         <div className="toast-notification">
           <div className="toast-content">
             <div className="toast-icon">
-              {toast.type === 'success' 
-                ? <CheckCircle color="green" /> 
+              {toast.type === 'success'
+                ? <CheckCircle color="green" />
                 : <AlertCircle color="red" />
               }
             </div>

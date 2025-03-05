@@ -7,6 +7,14 @@ const Booking = sequelize.define('Booking', {
         autoIncrement: true,
         primaryKey: true,
     },
+    fullName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    phoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     eventName: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -34,6 +42,10 @@ const Booking = sequelize.define('Booking', {
             model: 'Users', // Reference the User model
             key: 'id',
         },
+    },
+    remarks: {
+        type: DataTypes.TEXT, // Use TEXT for longer remarks
+        allowNull: true, // Allow null initially
     },
 }, {
     tableName: 'bookings',

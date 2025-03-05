@@ -39,7 +39,7 @@ const Login = () => {
       const response = await login({ email, password });
       setToast({ type: 'success', message: 'Login successful!' });
       setTimeout(() => {
-        navigate('/booking'); // Redirect to dashboard or another page
+        navigate('/home'); // Redirect to dashboard or another page
       }, 2000); // Redirect after 2 seconds
     } catch (error) {
       setToast({ type: 'error', message: error.response?.data?.message || 'Login failed. Please try again.' });

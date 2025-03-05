@@ -4,7 +4,7 @@ import authRoutes from './src/routes/authRoutes.js';
 import sequelize from './src/config/db.js';
 import joinEventRoutes from './src/routes/joinEventRoutes.js';
 import ticketRoutes from './src/routes/ticketRoutes.js';
-import bookingRoutes from './src/routes/bookingRoutes.js'
+import bookingRoutes from './src/routes/bookingRoutes.js'; // Ensure this is imported
 
 import User from './src/models/User.js';
 import JoinEvent from './src/models/JoinEvent.js';
@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use('/api/', authRoutes);
 app.use('/api/', joinEventRoutes);
-app.use('/api', bookingRoutes);
+app.use('/api', bookingRoutes); // Ensure this is used
 
 // Sync database and start server
 const PORT = process.env.PORT || 5000;
