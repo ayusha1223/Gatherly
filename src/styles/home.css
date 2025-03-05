@@ -1,292 +1,244 @@
-.homepage * {
-    margin: 0;
+*{
+    margin:0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
 }
 
-/* CSS Variables */
+/* Homepage container */
 .homepage {
-    --primary: linear-gradient(135deg, #DBEEF7 0%, #BDD2E4 100%);
-    --secondary: #FAE7EB;
-    --accent: linear-gradient(135deg, #E0D4E7 0%, #EECEDA 100%);
-    --text: #2C1810;
-    --border: #CCDCEB;
-    --gradient: linear-gradient(135deg, #DB88A4 0%, #738FBD 100%);
-    background-color: var(--secondary);
-    color: var(--text);
-}
-
-/* Navbar */
-.homepage-navbar {
-    background: white;
-    padding: 1rem 2rem;
-    position: fixed;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     width: 100%;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    font-family: 'Playfair Display', serif;
+    overflow-y: auto;
 }
 
-.homepage-nav-content {
-    max-width: 1200px;
-    margin: 0 auto;
+/* Navbar styling */
+.homepage-navbar {
+    width: 100%;
+    background-color: #715e55;
+    padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .homepage-logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    background: linear-gradient(to right, #738fbd, #db88a4);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
     text-decoration: none;
+}
+
+.homepage-nav-links {
+    display: flex;
+    gap: 20px;
 }
 
 .homepage-nav-links a {
-    margin-left: 2rem;
+    color: #fff;
     text-decoration: none;
-    color: var(--text);
-    font-weight: 500;
-    transition: color 0.3s;
+    font-size: 16px;
 }
 
-.homepage-nav-links a:hover {
-    color: var(--primary);
-}
-
-/* Hero Section */
+/* Hero section */
 .homepage-hero {
-    margin-top: 80px;
-    padding: 4rem 2rem;
-    background: var(--gradient);
-    color: white;
     text-align: center;
+    padding: 100px 20px;
+    background-color: #8C6A89;
+    color: #fff;
 }
 
 .homepage-hero h1 {
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
+    font-size: 48px;
+    margin-bottom: 20px;
 }
 
 .homepage-hero p {
-    font-size: 1.2rem;
-    max-width: 600px;
-    margin: 0 auto 2rem;
+    font-size: 18px;
+    margin-bottom: 30px;
 }
 
 .homepage-submit-btn {
-    background: var(--gradient);
-    color: white;
+    padding: 10px 20px;
+    background-color: #6B4423;
+    color: #fff;
     border: none;
-    padding: 1rem 2rem;
     border-radius: 8px;
+    font-size: 16px;
     cursor: pointer;
-    font-size: 1rem;
-    transition: transform 0.3s;
-    display: inline-block;
     text-decoration: none;
 }
 
 .homepage-submit-btn:hover {
-    transform: translateY(-2px);
+    background-color: #543518;
 }
 
-/* Tools Section */
+/* Tools section */
 .homepage-tools-section {
-    max-width: 1200px;
-    margin: 4rem auto;
-    padding: 2rem;
+    padding: 50px 20px;
+    background-color: #fff;
+    text-align: center;
 }
 
 .homepage-tools-section h2 {
-    margin-bottom: 2rem;
+    font-size: 36px;
+    margin-bottom: 30px;
 }
 
 .homepage-tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .homepage-tool-card {
-    position: relative;
-    height: 300px;
-    border-radius: 15px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-}
-
-.homepage-tool-card:hover {
-    transform: translateY(-5px);
+    width: 300px;
+    text-align: center;
 }
 
 .homepage-tool-image {
     width: 100%;
-    height: 100%;
+    height: 200px;
     object-fit: cover;
-    transition: filter 0.3s;
 }
 
 .homepage-tool-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #DBEEF7;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s;
-    padding: 2rem;
-    color: #2C1810;
-    text-align: center;
-}
-
-.homepage-tool-card:hover .homepage-tool-image {
-    filter: blur(3px);
-}
-
-.homepage-tool-card:hover .homepage-tool-overlay {
-    opacity: 1;
+    padding: 20px;
 }
 
 .homepage-tool-overlay h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
-/* Help Form */
-.homepage-help-section {
-    background: white;
-    padding: 4rem 2rem;
-    margin: 4rem 0;
+.homepage-tool-overlay p {
+    font-size: 16px;
+    color: #666;
 }
 
-.homepage-help-form {
+/* Booking form section */
+.booking-content {
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.booking-content h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+.booking-form {
     max-width: 600px;
     margin: 0 auto;
-}
-
-.homepage-help-form h2 {
-    margin-bottom: 1rem;
-}
-
-.homepage-help-form p {
-    margin-bottom: 2rem;
-}
-
-.homepage-form-group {
-    margin-bottom: 1.5rem;
-}
-
-.homepage-form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: var(--text);
-    font-weight: 500;
-}
-
-.homepage-form-group input,
-.homepage-form-group textarea {
-    width: 100%;
-    padding: 1rem;
-    border: 2px solid var(--border);
+    background-color: #fff;
+    padding: 20px;
     border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-    background-color: white;
-    color: black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.homepage-form-group input:focus,
-.homepage-form-group textarea:focus {
-    border-color: var(--primary);
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
     outline: none;
+    border-color: #6B4423;
 }
 
-.error {
-    color: red;
-    font-size: 0.8rem;
-    margin-top: 0.5rem;
+.submit-btn {
+    padding: 10px 20px;
+    background-color: #6B4423;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-/* FAQ Section */
+.submit-btn:hover {
+    background-color: #543518;
+}
+
+/* FAQ section */
 .homepage-faq {
-    max-width: 900px;
-    margin: 4rem auto;
-    padding: 2rem;
+    padding: 50px 20px;
+    background-color: #fff;
+    text-align: center;
 }
 
 .homepage-faq h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: var(--primary);
+    font-size: 36px;
+    margin-bottom: 30px;
 }
 
 .homepage-faq-item {
-    background: white;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: left;
 }
 
 .homepage-faq-question {
-    padding: 1.5rem;
-    cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: 500;
+    padding: 15px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.homepage-faq-question i {
+    transition: transform 0.3s;
 }
 
 .homepage-faq-answer {
-    padding: 0 1.5rem;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-    background: var(--secondary);
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin-top: 10px;
+    display: none;
 }
 
 .homepage-faq-answer.active {
-    padding: 1.5rem;
-    max-height: 200px;
+    display: block;
 }
 
 /* Footer */
 .homepage-footer {
-    background: var(--primary);
-    color: white;
-    padding: 1rem 2rem;
-    margin-top: auto;
+    padding: 20px;
+    background-color: #6d4c3d;
+    color: #fff;
+    text-align: center;
 }
 
 .homepage-copyright {
-    text-align: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .homepage-nav-links {
-        display: none;
-    }
-
-    .homepage-hero h1 {
-        font-size: 2rem;
-    }
-
-    .homepage-tools-grid {
-        grid-template-columns: 1fr;
-    }
+    font-size: 14px;
 }
