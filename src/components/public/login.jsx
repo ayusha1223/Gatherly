@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../../services/authService'; // Import the login function
 import '../../styles/login.css';
 import '../../App.css';
 import { CheckCircle, XCircle } from 'lucide-react';
@@ -7,12 +9,13 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [toast, setToast] = useState(null);
+  const navigate = useNavigate();
 
   const validateEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setToast(null);
 
@@ -31,10 +34,14 @@ const Login = () => {
       return;
     }
 
-    // Simulate successful login
-    setToast({ type: 'success', message: 'Login successful!' });
-    setEmail('');
-    setPassword('');
+    try {
+      // Call the login API
+      const response = await login({ email, password });
+      setToast({ type: 'success', message: 'Login successful!' });
+      navigate('/booking'); // Redirect to dashboard or another page
+    } catch (error) {
+      setToast({ type: 'error', message: error.response?.data?.message || 'Login failed. Please try again.' });
+    }
   };
 
   // Auto-dismiss toast after 3 seconds
@@ -112,4 +119,3 @@ const Login = () => {
 };
 
 export default Login;
-

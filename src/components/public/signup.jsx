@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { signup } from '../../services/authService'; // Import the signup function
 import { CheckCircle, XCircle } from 'lucide-react';
 import '../../styles/signup.css';
 import '../../App.css';
@@ -37,14 +38,7 @@ const Signup = () => {
     });
   };
 
-  useEffect(() => {
-    if (toast) {
-      const timer = setTimeout(() => setToast(null), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [toast]);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setToast(null);
     let validationErrors = {};
@@ -61,15 +55,11 @@ const Signup = () => {
       validationErrors.email = 'Email is already registered';
     }
 
-    if (!formData.password) {
-      validationErrors.password = 'Password is required';
-    } else if (!validatePassword(formData.password)) {
-      validationErrors.password = 'Password must contain 8+ chars with letter, number, and special character';
+    if (!validatePassword(formData.password)) {
+      validationErrors.password = 'Password must be at least 8 characters, include one letter, one number, and one special character';
     }
 
-    if (!formData.confirmPassword) {
-      validationErrors.confirmPassword = 'Confirm password is required';
-    } else if (formData.password !== formData.confirmPassword) {
+    if (formData.password !== formData.confirmPassword) {
       validationErrors.confirmPassword = 'Passwords do not match';
     }
 
@@ -78,25 +68,32 @@ const Signup = () => {
     }
 
     if (Object.keys(validationErrors).length > 0) {
-      const errorMessage = Object.values(validationErrors).join(', ');
-      setToast({ type: 'error', message: errorMessage });
+      setToast({ type: 'error', message: Object.values(validationErrors).join(', ') });
       return;
     }
 
-    // Success case
-    setToast({ type: 'success', message: 'Account created successfully! Redirecting to login...' });
-    setExistingEmails([...existingEmails, formData.email]);
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      termsAccepted: false,
-    });
-    
-    setTimeout(() => navigate('/login'), 2000);
+    try {
+      // Call the signup API
+      const response = await signup({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        password: formData.password,
+      });
+      setToast({ type: 'success', message: 'Account created successfully! Redirecting to login...' });
+      setTimeout(() => navigate('/login'), 2000);
+    } catch (error) {
+      setToast({ type: 'error', message: error.response?.data?.message || 'Signup failed. Please try again.' });
+    }
   };
+
+  // Auto-dismiss toast after 3 seconds
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
 
   return (
     <div className="signup-page-container">
@@ -205,7 +202,7 @@ const Signup = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="signup-page-contact">
         <p>📞 Phone: +123 456 7890</p>
         <p>✉ E-Mail: hello@gatherly.com</p>
@@ -215,4 +212,3 @@ const Signup = () => {
 };
 
 export default Signup;
-
