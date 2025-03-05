@@ -1,0 +1,69 @@
+.bookTicketsPage {
+    --spring-water: #D3DADC;
+    --sand: #E8E2DA;
+    --wood: #D6C9B4;
+    --navy: #455763;
+    --white: #FFFFFF;
+  }
+/* styles/booking.css */
+.booking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2c3e50;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  
+  .booking-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    color: #34495e;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    background-color: #f0f0f0;
+    color: #3498db;
+  }
+  
+  .nav-link.active {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .booking-header {
+      flex-direction: column;
+      padding: 15px 10px;
+    }
+  
+    .booking-nav {
+      margin-top: 10px;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+  }

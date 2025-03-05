@@ -8,6 +8,12 @@ import Login from "./components/public/login";
 import Signup from "./components/public/signup";
 import "./styles/login.css";
 import "./styles/signup.css";
+import Terms from "./components/public/terms";
+import "./styles/terms.css";
+import Booking from "./components/private/booking";
+import "./styles/booking.css";
+import JoinEvent from './components/private/JoinEvent';
+import "./styles/joinevent.css";
 
 
 function App() {
@@ -16,6 +22,10 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/booking" element={<Booking />} />
+        <Route path="/join" element={<JoinEvent />} />
+      
       </Routes>
     </Router>
   );
