@@ -73,7 +73,7 @@ const JoinEvent = () => {
               className={activeNav === 'BookEvents' ? 'active' : ''}
               onClick={() => setActiveNav('BookEvents')}
             >
-              Join Event
+              Join
             </a>
             <a 
               href="/logout" 

@@ -8,13 +8,12 @@ const Header = () => {
       <div className="header-content">
         <div className="header-logo">
           <Ticket size={40} />
-          <h1>Event Ticket Management</h1>
+          <h1>Gatherly</h1>
         </div>
         <nav className="header-nav">
           <a href="#" className="nav-link">Home</a>
           <a href="#" className="nav-link">Events</a>
-          <a href="#" className="nav-link">My Tickets</a>
-          <a href="#" className="nav-link">Profile</a>
+          <a href="#" className="nav-link">Tickets</a>
         </nav>
       </div>
     </header>
