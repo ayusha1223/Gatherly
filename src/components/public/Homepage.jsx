@@ -12,10 +12,13 @@ import eventthreeImg from '../../assets/images/eventthree.png';
 const Homepage = () => {
     const [activeFaq, setActiveFaq] = useState(null);
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
+        fullName: '',
+        phoneNumber: '',
+        eventName: '',
+        eventDate: '',
+        eventType: '',
+        numberOfGuests: '',
+        contactEmail: '',
     });
     const [errors, setErrors] = useState({});
 
@@ -28,16 +31,24 @@ const Homepage = () => {
         return regex.test(email);
     };
 
+    const validatePhoneNumber = (phoneNumber) => {
+        const regex = /^\d{10}$/; // Assumes a 10-digit phone number
+        return regex.test(phoneNumber);
+    };
+
     const validateForm = () => {
         const newErrors = {};
 
-        if (!formData.name) newErrors.name = "Name is required";
-        if (!formData.email) newErrors.email = "Email is required";
-        else if (!validateEmail(formData.email)) newErrors.email = "Invalid email format";
-        if (!formData.subject) newErrors.subject = "Subject is required";
-        else if (formData.subject.length > 50) newErrors.subject = "Subject must be less than 50 characters";
-        if (!formData.message) newErrors.message = "Message is required";
-        else if (formData.message.length > 500) newErrors.message = "Message must be less than 500 characters";
+        if (!formData.fullName) newErrors.fullName = "Full Name is required";
+        if (!formData.phoneNumber) newErrors.phoneNumber = "Phone Number is required";
+        else if (!validatePhoneNumber(formData.phoneNumber)) newErrors.phoneNumber = "Invalid phone number format";
+        if (!formData.eventName) newErrors.eventName = "Event Name is required";
+        if (!formData.eventDate) newErrors.eventDate = "Event Date is required";
+        if (!formData.eventType) newErrors.eventType = "Event Type is required";
+        if (!formData.numberOfGuests) newErrors.numberOfGuests = "Number of Guests is required";
+        else if (formData.numberOfGuests < 1) newErrors.numberOfGuests = "Number of Guests must be at least 1";
+        if (!formData.contactEmail) newErrors.contactEmail = "Contact Email is required";
+        else if (!validateEmail(formData.contactEmail)) newErrors.contactEmail = "Invalid email format";
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -49,11 +60,19 @@ const Homepage = () => {
         if (!validateForm()) return;
 
         // Simulate form submission success
-        toast.success("Thank you for your message! We will get back to you soon.", {
+        toast.success("Thank you for your booking! We will get back to you soon.", {
             position: "top-center",
             autoClose: 3000,
         });
-        setFormData({ name: '', email: '', subject: '', message: '' }); // Reset form
+        setFormData({
+            fullName: '',
+            phoneNumber: '',
+            eventName: '',
+            eventDate: '',
+            eventType: '',
+            numberOfGuests: '',
+            contactEmail: '',
+        }); // Reset form
     };
 
     const handleChange = (e) => {
@@ -63,24 +82,24 @@ const Homepage = () => {
 
     const faqItems = [
         {
-            question: "How can Gatherly help me manage events?",
-            answer: "EventHub offers comprehensive tools for creating, managing, and tracking events. From simple meetups to large conferences, our platform simplifies event organization."
+            question: "How do I create an event?",
+            answer: "You can create an event by filling out a simple form with details like the event name, date, and location."
         },
         {
-            question: "What features are available for event creation?",
-            answer: "Our platform allows you to create detailed event listings, manage registrations, track attendees, and customize event details with ease."
+            question: "Can I edit an event after creating it?",
+            answer: "Yes, you can edit event details anytime before the event starts."
         },
         {
-            question: "Can I manage multiple events?",
-            answer: "Yes! EventHub lets you create, track, and manage multiple events simultaneously, with intuitive dashboard and tracking capabilities."
+            question: "How do I track event registrations?",
+            answer: "You can view all registrations and attendee details in the event dashboard."
         },
         {
-            question: "Is ticket management complicated?",
-            answer: "Not at all! Our ticket management system is straightforward, allowing you to set pricing, track sales, and manage attendee information seamlessly."
+            question: "Is there a limit to the number of events I can create?",
+            answer: "No, you can create as many events as you need."
         },
         {
-            question: "How secure is the event registration process?",
-            answer: "We prioritize security and user experience. Our registration process is encrypted and designed to protect both event organizers and attendees."
+            question: "How do I contact support?",
+            answer: "You can reach out to our support team through the contact form on the website."
         }
     ];
 
@@ -96,8 +115,9 @@ const Homepage = () => {
             image: eventtwoImg
         },
         {
-            title: "Event Tracking",
-            description: "Get comprehensive insights and analytics for your events with our robust tracking system.",
+            
+            title: "User-friendly Interface",
+            description: "Enjoy a clean and intuitive interface designed to make event management simple and stress-free.",
             image: eventthreeImg
         }
     ];
@@ -136,62 +156,98 @@ const Homepage = () => {
                 </div>
             </section>
 
-            <section className="homepage-help-section">
-                <div className="homepage-help-form">
-                    <h2>Need Help?</h2>
-                    <p>Fill out the form below and we'll get back to you as soon as possible.</p>
-                    <form id="helpForm" onSubmit={handleFormSubmit}>
-                        <div className="homepage-form-group">
-                            <label htmlFor="name">Name</label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                required
-                            />
-                            {errors.name && <span className="error">{errors.name}</span>}
-                        </div>
-                        <div className="homepage-form-group">
-                            <label htmlFor="email">Email</label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                            />
-                            {errors.email && <span className="error">{errors.email}</span>}
-                        </div>
-                        <div className="homepage-form-group">
-                            <label htmlFor="subject">Subject</label>
-                            <input
-                                type="text"
-                                id="subject"
-                                name="subject"
-                                value={formData.subject}
-                                onChange={handleChange}
-                                required
-                            />
-                            {errors.subject && <span className="error">{errors.subject}</span>}
-                        </div>
-                        <div className="homepage-form-group">
-                            <label htmlFor="message">Message</label>
-                            <textarea
-                                id="message"
-                                name="message"
-                                rows="5"
-                                value={formData.message}
-                                onChange={handleChange}
-                                required
-                            />
-                            {errors.message && <span className="error">{errors.message}</span>}
-                        </div>
-                        <button type="submit" className="homepage-submit-btn">Submit</button>
-                    </form>
-                </div>
+            <section className="booking-content">
+                <h1>Book Event Tickets</h1>
+                <form onSubmit={handleFormSubmit} className="booking-form">
+                    <div className="form-group">
+                        <label>Full Name</label>
+                        <input
+                            type="text"
+                            name="fullName"
+                            value={formData.fullName}
+                            onChange={handleChange}
+                            required
+                            placeholder="Enter your full name"
+                        />
+                        {errors.fullName && <span className="error">{errors.fullName}</span>}
+                    </div>
+                    <div className="form-group">
+                        <label>Phone Number</label>
+                        <input
+                            type="text"
+                            name="phoneNumber"
+                            value={formData.phoneNumber}
+                            onChange={handleChange}
+                            required
+                            placeholder="Enter your phone number"
+                        />
+                        {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
+                    </div>
+                    <div className="form-group">
+                        <label>Event Name</label>
+                        <input
+                            type="text"
+                            name="eventName"
+                            value={formData.eventName}
+                            onChange={handleChange}
+                            required
+                            placeholder="Enter event name"
+                        />
+                        {errors.eventName && <span className="error">{errors.eventName}</span>}
+                    </div>
+                    <div className="form-group">
+                        <label>Event Date</label>
+                        <input
+                            type="date"
+                            name="eventDate"
+                            value={formData.eventDate}
+                            onChange={handleChange}
+                            required
+                        />
+                        {errors.eventDate && <span className="error">{errors.eventDate}</span>}
+                    </div>
+                    <div className="form-group">
+                        <label>Event Type</label>
+                        <select
+                            name="eventType"
+                            value={formData.eventType}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Select Event Type</option>
+                            <option value="wedding">Wedding</option>
+                            <option value="birthday">Birthday</option>
+                            <option value="corporate">Corporate</option>
+                            <option value="concert">Concert</option>
+                        </select>
+                        {errors.eventType && <span className="error">{errors.eventType}</span>}
+                    </div>
+                    <div className="form-group">
+                        <label>Number of Guests</label>
+                        <input
+                            type="number"
+                            name="numberOfGuests"
+                            value={formData.numberOfGuests}
+                            onChange={handleChange}
+                            min="1"
+                            required
+                        />
+                        {errors.numberOfGuests && <span className="error">{errors.numberOfGuests}</span>}
+                    </div>
+                    <div className="form-group">
+                        <label>Contact Email</label>
+                        <input
+                            type="email"
+                            name="contactEmail"
+                            value={formData.contactEmail}
+                            onChange={handleChange}
+                            required
+                            placeholder="Enter your email"
+                        />
+                        {errors.contactEmail && <span className="error">{errors.contactEmail}</span>}
+                    </div>
+                    <button type="submit" className="submit-btn">Book Now</button>
+                </form>
             </section>
 
             <section className="homepage-faq">
@@ -225,4 +281,3 @@ const Homepage = () => {
 };
 
 export default Homepage;
-
