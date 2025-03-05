@@ -38,7 +38,9 @@ const Login = () => {
       // Call the login API
       const response = await login({ email, password });
       setToast({ type: 'success', message: 'Login successful!' });
-      navigate('/booking'); // Redirect to dashboard or another page
+      setTimeout(() => {
+        navigate('/booking'); // Redirect to dashboard or another page
+      }, 2000); // Redirect after 2 seconds
     } catch (error) {
       setToast({ type: 'error', message: error.response?.data?.message || 'Login failed. Please try again.' });
     }
