@@ -1,8 +1,8 @@
 import Ticket from '../models/Ticket.js';
 
-// Submit Ticket Booking
-export const submitTicket = async (req, res) => {
-    const { fullName, email, phone, eventName, ticketType, quantity, paymentMethod, specialRequests } = req.body;
+// Add a new ticket
+export const addTicket = async (req, res) => {
+    const { fullName, email, phone, eventName, ticketType, quantity, specialRequests } = req.body;
     const userId = req.user.id; // Get user ID from authenticated user
 
     try {
@@ -13,17 +13,16 @@ export const submitTicket = async (req, res) => {
             eventName,
             ticketType,
             quantity,
-            paymentMethod,
             specialRequests,
             userId,
         });
         res.status(201).json(newTicket);
     } catch (error) {
-        res.status(500).json({ message: 'Error submitting ticket', error });
+        res.status(500).json({ message: 'Error adding ticket', error });
     }
 };
 
-// Get all Tickets for the logged-in user
+// Get all tickets for the logged-in user
 export const getUserTickets = async (req, res) => {
     const userId = req.user.id; // Get user ID from authenticated user
 
@@ -35,11 +34,11 @@ export const getUserTickets = async (req, res) => {
     }
 };
 
-// Update Ticket by the logged-in user
+// Update a ticket by the logged-in user
 export const updateTicket = async (req, res) => {
     const { id } = req.params;
     const userId = req.user.id; // Get user ID from authenticated user
-    const { fullName, email, phone, eventName, ticketType, quantity, paymentMethod, specialRequests } = req.body;
+    const { fullName, email, phone, eventName, ticketType, quantity, specialRequests } = req.body;
 
     try {
         const ticket = await Ticket.findOne({ where: { id, userId } });
@@ -47,13 +46,13 @@ export const updateTicket = async (req, res) => {
             return res.status(404).json({ message: 'Ticket not found or unauthorized' });
         }
 
+        // Update ticket fields
         ticket.fullName = fullName;
         ticket.email = email;
         ticket.phone = phone;
         ticket.eventName = eventName;
         ticket.ticketType = ticketType;
         ticket.quantity = quantity;
-        ticket.paymentMethod = paymentMethod;
         ticket.specialRequests = specialRequests;
 
         await ticket.save();
@@ -63,7 +62,7 @@ export const updateTicket = async (req, res) => {
     }
 };
 
-// Delete Ticket by the logged-in user
+// Delete a ticket by the logged-in user
 export const deleteTicket = async (req, res) => {
     const { id } = req.params;
     const userId = req.user.id; // Get user ID from authenticated user

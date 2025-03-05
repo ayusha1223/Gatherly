@@ -20,7 +20,7 @@ const Ticket = sequelize.define('Ticket', {
     },
     phone: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
     },
     eventName: {
         type: DataTypes.STRING,
@@ -33,14 +33,13 @@ const Ticket = sequelize.define('Ticket', {
     quantity: {
         type: DataTypes.INTEGER,
         allowNull: false,
-    },
-    paymentMethod: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        validate: {
+            min: 1, // Ensure quantity is at least 1
+        },
     },
     specialRequests: {
         type: DataTypes.TEXT,
-        allowNull: true,
+        allowNull: true, // Optional field
     },
     userId: {
         type: DataTypes.INTEGER,
