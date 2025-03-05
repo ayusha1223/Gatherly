@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios'; // Import Axios
 import '../../styles/home.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -54,25 +55,42 @@ const Homepage = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
 
         if (!validateForm()) return;
 
-        // Simulate form submission success
-        toast.success("Thank you for your booking! We will get back to you soon.", {
-            position: "top-center",
-            autoClose: 3000,
-        });
-        setFormData({
-            fullName: '',
-            phoneNumber: '',
-            eventName: '',
-            eventDate: '',
-            eventType: '',
-            numberOfGuests: '',
-            contactEmail: '',
-        }); // Reset form
+        try {
+            // Send the form data to the backend API
+            const response = await axios.post('http://localhost:5000/api/bookings', {
+                ...formData,
+                userId: 1, // Replace with the actual user ID (e.g., from authentication)
+            });
+
+            // Show success message
+            toast.success("Thank you for your booking! We will get back to you soon.", {
+                position: "top-center",
+                autoClose: 3000,
+            });
+
+            // Reset the form after successful submission
+            setFormData({
+                fullName: '',
+                phoneNumber: '',
+                eventName: '',
+                eventDate: '',
+                eventType: '',
+                numberOfGuests: '',
+                contactEmail: '',
+            });
+            setErrors({}); // Clear any previous errors
+        } catch (error) {
+            console.error('Error submitting booking:', error);
+            toast.error("Error submitting booking. Please try again.", {
+                position: "top-center",
+                autoClose: 3000,
+            });
+        }
     };
 
     const handleChange = (e) => {
@@ -115,7 +133,6 @@ const Homepage = () => {
             image: eventtwoImg
         },
         {
-            
             title: "User-friendly Interface",
             description: "Enjoy a clean and intuitive interface designed to make event management simple and stress-free.",
             image: eventthreeImg
