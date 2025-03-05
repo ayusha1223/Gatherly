@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Trash2, Edit, Ticket } from 'lucide-react';
+import axios from 'axios';
 import '../../styles/ticket.css';
 
 const Header = () => {
@@ -11,9 +12,9 @@ const Header = () => {
           <h1>Gatherly</h1>
         </div>
         <nav className="header-nav">
-          <a href="#" className="nav-link">Home</a>
-          <a href="#" className="nav-link">Events</a>
-          <a href="#" className="nav-link">Tickets</a>
+          <a href="/home" className="nav-link">Home</a>
+          <a href="book" className="nav-link">Events</a>
+          <a href="ticket" className="nav-link">Tickets</a>
         </nav>
       </div>
     </header>
@@ -38,7 +39,7 @@ const TicketForm = ({ ticket, onSubmit, isEditing }) => {
     phone: '',
     eventName: '',
     ticketType: '',
-    quantity: 1,    
+    quantity: 1,
     paymentMethod: '',
     specialRequests: ''
   });
@@ -53,7 +54,7 @@ const TicketForm = ({ ticket, onSubmit, isEditing }) => {
       phone: '',
       eventName: '',
       ticketType: '',
-      quantity: 1,    
+      quantity: 1,
       paymentMethod: '',
       specialRequests: ''
     });
@@ -73,25 +74,25 @@ const TicketForm = ({ ticket, onSubmit, isEditing }) => {
 
     // Email validation
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  const validDomains = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "example.com"]; // Add more valid domains as needed
-  if (!formData.email.trim()) {
-    newErrors.email = 'Email is required';
-  } else if (!emailRegex.test(formData.email)) {
-    newErrors.email = 'Invalid email format';
-  } else {
-    const domain = formData.email.split('@')[1]; // Extract the domain part
-    if (!validDomains.includes(domain.toLowerCase())) {
-      newErrors.email = 'Invalid email domain';
+    const validDomains = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "example.com"]; // Add more valid domains as needed
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = 'Invalid email format';
+    } else {
+      const domain = formData.email.split('@')[1]; // Extract the domain part
+      if (!validDomains.includes(domain.toLowerCase())) {
+        newErrors.email = 'Invalid email domain';
+      }
     }
-  }
 
     // Phone validation (optional, but if provided must be valid)
     const phoneRegex = /^\+?(\d{1,4})?[-.\s]?(\(?\d{1,4}\)?)?[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
     if (!formData.phone.trim()) {
       newErrors.phone = 'Phone number is required';
-    }else if (!phoneRegex.test(formData.phone)) {
-        newErrors.phone = 'Invalid phone number format';
-    }  
+    } else if (!phoneRegex.test(formData.phone)) {
+      newErrors.phone = 'Invalid phone number format';
+    }
 
     // Event Name validation
     if (!formData.eventName.trim()) {
@@ -132,7 +133,7 @@ const TicketForm = ({ ticket, onSubmit, isEditing }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
       onSubmit(formData);
       // Reset form to initial state
@@ -143,7 +144,7 @@ const TicketForm = ({ ticket, onSubmit, isEditing }) => {
         phone: '',
         eventName: '',
         ticketType: '',
-        quantity: 1,    
+        quantity: 1,
         paymentMethod: '',
         specialRequests: ''
       });
@@ -285,14 +286,14 @@ const TicketList = ({ tickets, onEdit, onDelete }) => {
                 <td>{ticket.ticketType}</td>
                 <td>{ticket.quantity}</td>
                 <td className="action-buttons">
-                  <button 
+                  <button
                     onClick={() => onEdit(ticket)}
                     className="btn-edit"
                     title="Edit Ticket"
                   >
                     <Edit size={20} />
                   </button>
-                  <button 
+                  <button
                     onClick={() => onDelete(ticket.id)}
                     className="btn-delete"
                     title="Delete Ticket"
@@ -314,8 +315,8 @@ const Tickets = () => {
   const [selectedTicket, setSelectedTicket] = useState(null);
 
   const handleCreateTicket = (newTicket) => {
-    const ticketWithId = { 
-      ...newTicket, 
+    const ticketWithId = {
+      ...newTicket,
       id: tickets.length > 0 ? Math.max(...tickets.map(t => t.id)) + 1 : 1
     };
     setTickets([...tickets, ticketWithId]);
@@ -323,7 +324,7 @@ const Tickets = () => {
   };
 
   const handleEditTicket = (updatedTicket) => {
-    const updatedTickets = tickets.map(ticket => 
+    const updatedTickets = tickets.map(ticket =>
       ticket.id === updatedTicket.id ? { ...updatedTicket } : ticket
     );
     setTickets(updatedTickets);
@@ -344,13 +345,13 @@ const Tickets = () => {
       <Banner />
       <div className="tickets-container">
         <div className="tickets-grid">
-          <TicketForm 
-            ticket={selectedTicket} 
+          <TicketForm
+            ticket={selectedTicket}
             onSubmit={selectedTicket ? handleEditTicket : handleCreateTicket}
             isEditing={!!selectedTicket}
           />
-          <TicketList 
-            tickets={tickets} 
+          <TicketList
+            tickets={tickets}
             onEdit={setSelectedTicket}
             onDelete={handleDeleteTicket}
           />
