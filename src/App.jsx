@@ -6,20 +6,12 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/public/login";
 import Signup from "./components/public/signup";
-import "./styles/login.css";
-import "./styles/signup.css";
 import Terms from "./components/public/terms";
-import "./styles/terms.css";
 import Booking from "./components/private/booking";
-import "./styles/booking.css";
 import JoinEvent from './components/private/JoinEvent';
-import "./styles/joinevent.css";
 import Ticket from './components/private/tickets';
-import "./styles/ticket.css";
-import Admin from './components/private/AdminDashboard';
-import "./styles/admindashboard.css";
 import HomePage from './components/public/Homepage';
-import "./styles/home.css";
+import AdminDashboard from './components/private/AdminDashboard';
 
 function App() {
   return (
@@ -32,7 +24,7 @@ function App() {
         <Route path="/booking" element={<Booking />} />
         <Route path="/join" element={<JoinEvent />} />
         <Route path="/ticket" element={<Ticket />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       
       </Routes>
     </Router>

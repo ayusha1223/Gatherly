@@ -1,47 +1,130 @@
 .admin-dashboard {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background-color: #f4f4f4;
+    background-color: #F5F5DC; /* Beige background */
     min-height: 100vh;
-  }
-  
-  .admin-dashboard h1 {
-    text-align: center;
-    color: #333;
-  }
-  
-  .admin-dashboard h2 {
-    margin-top: 20px;
-    color: #555;
-  }
-  
-  .admin-dashboard table {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header section with Logout button */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
-    border-collapse: collapse;
-    background: white;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.admin-header h1 {
+    color: #8B4513; /* Saddle Brown */
+    font-size: 2rem;
+}
+
+.logout-button {
+    background-color: #D8000C; /* Dark red */
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
     border-radius: 5px;
-    overflow: hidden;
-    margin-top: 20px;
-  }
-  
-  .admin-dashboard th, .admin-dashboard td {
-    padding: 10px;
+    font-size: 1rem;
+}
+
+.logout-button:hover {
+    background-color: #A00008; /* Darker red */
+}
+
+/* Table container for scrolling */
+.table-container {
+    width: 100%;
+    max-width: 1200px;
+    overflow-x: auto;
+    max-height: 500px; /* Adjust as needed */
+    overflow-y: auto;
+}
+
+.admin-dashboard table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #FAF0E6; /* Light Beige */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.admin-dashboard table thead {
+    background-color: #DEB887; /* Burlywood */
+}
+
+.admin-dashboard table th {
+    padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .admin-dashboard th {
-    background-color: #007bff;
-    color: white;
-    text-transform: uppercase;
-  }
-  
-  .admin-dashboard tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .admin-dashboard tr:hover {
-    background-color: #f1f1f1;
-  }
+    color: #5D4037; /* Dark Brown */
+    border-bottom: 2px solid #8B4513;
+    position: sticky;
+    top: 0;
+    background-color: #DEB887;
+    z-index: 2;
+}
+
+.admin-dashboard table tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.admin-dashboard table tbody tr:nth-child(even) {
+    background-color: #FFF0D1; /* Very Light Beige */
+}
+
+.admin-dashboard table tbody tr:hover {
+    background-color: #E6D2B5; /* Soft Tan */
+}
+
+.admin-dashboard table td {
+    padding: 10px;
+    border-bottom: 1px solid #D2B48C; /* Tan */
+    color: #5D4037; /* Dark Brown */
+}
+
+/* Input Styling */
+.admin-dashboard input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #D2B48C;
+    background-color: #FFFFFF;
+    color: #5D4037;
+    transition: border-color 0.3s ease;
+}
+
+.admin-dashboard input:focus {
+    outline: none;
+    border-color: #8B4513;
+}
+
+/* Button Styling */
+.admin-dashboard button {
+    background-color: #8B4513; /* Saddle Brown */
+    color: #FFFFFF;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.admin-dashboard button:hover {
+    background-color: #5D4037; /* Darker Brown */
+}
+
+/* Validation Errors */
+.validation-error {
+    color: #D8000C;
+    background-color: #FFD2D2;
+    margin-top: 5px;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}
+
   
