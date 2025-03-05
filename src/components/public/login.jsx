@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/login.css';
 import '../../App.css';
+import { CheckCircle, XCircle } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [toast, setToast] = useState(null);
 
   const validateEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -14,32 +14,53 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
+    setToast(null);
 
     if (!email || !password) {
-      setError('All fields are required');
+      setToast({ type: 'error', message: 'All fields are required' });
       return;
     }
 
     if (!validateEmail(email)) {
-      setError('Please enter a valid email address');
+      setToast({ type: 'error', message: 'Please enter a valid email address' });
       return;
     }
 
     if (password.length < 8) {
-      setError('Password must be at least 8 characters long');
+      setToast({ type: 'error', message: 'Password must be at least 8 characters long' });
       return;
     }
 
-    // Simulate successful login (You can replace this with API call)
-    setSuccess('Login successful!');
+    // Simulate successful login
+    setToast({ type: 'success', message: 'Login successful!' });
     setEmail('');
     setPassword('');
   };
 
+  // Auto-dismiss toast after 3 seconds
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
+
   return (
     <div className="login-page">
+      {/* Toast Notification */}
+      {toast && (
+        <div className={`toast ${toast.type}`}>
+          <div className="toast-content">
+            {toast.type === 'success' ? (
+              <CheckCircle size={20} />
+            ) : (
+              <XCircle size={20} />
+            )}
+            <span>{toast.message}</span>
+          </div>
+        </div>
+      )}
+
       <header className="header">
         <div className="logo">GATHERLY</div>
         <a href="/" className="home-button">Home</a>
@@ -69,9 +90,6 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-
-            {error && <p className="error-message">{error}</p>}
-            {success && <p className="success-message">{success}</p>}
 
             <p className="forgot-password">
               <a href="/forgot-password">Forgot Password?</a>

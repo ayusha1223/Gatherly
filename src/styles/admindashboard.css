@@ -1,0 +1,47 @@
+.admin-dashboard {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+  }
+  
+  .admin-dashboard h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .admin-dashboard h2 {
+    margin-top: 20px;
+    color: #555;
+  }
+  
+  .admin-dashboard table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+  
+  .admin-dashboard th, .admin-dashboard td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .admin-dashboard th {
+    background-color: #007bff;
+    color: white;
+    text-transform: uppercase;
+  }
+  
+  .admin-dashboard tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .admin-dashboard tr:hover {
+    background-color: #f1f1f1;
+  }
+  
