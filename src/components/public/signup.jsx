@@ -99,8 +99,8 @@ const Signup = () => {
     <div className="signup-page-container">
       {/* Toast Notification */}
       {toast && (
-        <div className={`signup-page-toast ${toast.type ? `signup-page-toast-${toast.type}` : ''}`}>
-          <div className="signup-page-toast-content">
+        <div className={`toast ${toast.type}`}>
+          <div className="toast-content">
             {toast.type === 'success' ? (
               <CheckCircle size={20} />
             ) : (
