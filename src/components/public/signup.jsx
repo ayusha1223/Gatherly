@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signup } from '../../services/authService.js'; // Import the signup function
+import { signup } from '../../services/authService'; // Import the signup function
+import { CheckCircle, XCircle } from 'lucide-react';
 import '../../styles/signup.css';
 import '../../App.css';
 
@@ -13,7 +14,8 @@ const Signup = () => {
     confirmPassword: '',
     termsAccepted: false,
   });
-  const [errors, setErrors] = useState({});
+  const [existingEmails, setExistingEmails] = useState(["test@example.com", "user@gatherly.com"]);
+  const [toast, setToast] = useState(null);
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -22,7 +24,10 @@ const Signup = () => {
   };
 
   const validatePassword = (password) => {
-    return password.length >= 8 && /[a-zA-Z]/.test(password) && /[0-9]/.test(password) && /[^a-zA-Z0-9]/.test(password);
+    return password.length >= 8 && 
+           /[a-zA-Z]/.test(password) && 
+           /[0-9]/.test(password) && 
+           /[^a-zA-Z0-9]/.test(password);
   };
 
   const handleChange = (e) => {
@@ -35,17 +40,19 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form Submitted')
+    setToast(null);
     let validationErrors = {};
 
-    Object.keys(formData).forEach((key) => {
-      if (key !== 'termsAccepted' && !formData[key]) {
-        validationErrors[key] = 'This field is required';
-      }
-    });
-
-    if (!validateEmail(formData.email)) {
-      validationErrors.email = 'Email must be a valid email address';
+    // Field validation
+    if (!formData.firstName.trim()) validationErrors.firstName = 'First name is required';
+    if (!formData.lastName.trim()) validationErrors.lastName = 'Last name is required';
+    
+    if (!formData.email.trim()) {
+      validationErrors.email = 'Email is required';
+    } else if (!validateEmail(formData.email)) {
+      validationErrors.email = 'Invalid email format';
+    } else if (existingEmails.includes(formData.email)) {
+      validationErrors.email = 'Email is already registered';
     }
 
     if (!validatePassword(formData.password)) {
@@ -57,88 +64,146 @@ const Signup = () => {
     }
 
     if (!formData.termsAccepted) {
-      validationErrors.termsAccepted = 'You must accept the Terms & Conditions';
+      validationErrors.termsAccepted = 'You must accept the terms & conditions';
     }
 
-    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length > 0) {
+      setToast({ type: 'error', message: Object.values(validationErrors).join(', ') });
+      return;
+    }
 
-    if (Object.keys(validationErrors).length === 0) {
-      try {
-        // Call the signup API
-        const response = await signup({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          password: formData.password,
-        });
-        alert('Signup Successful!');
-        navigate('/login'); // Redirect to login page after successful signup
-      } catch (error) {
-        setErrors({ email: error.response?.data?.message || 'Signup failed. Please try again.' });
-      }
+    try {
+      // Call the signup API
+      const response = await signup({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        password: formData.password,
+      });
+      setToast({ type: 'success', message: 'Account created successfully! Redirecting to login...' });
+      setTimeout(() => navigate('/login'), 2000);
+    } catch (error) {
+      setToast({ type: 'error', message: error.response?.data?.message || 'Signup failed. Please try again.' });
     }
   };
 
+  // Auto-dismiss toast after 3 seconds
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
+
   return (
-    <div className="signup-page">
-      <header className="header">
-        <div className="logo">GATHERLY</div>
-        <a href="/" className="home-button">Home</a>
+    <div className="signup-page-container">
+      {/* Toast Notification */}
+      {toast && (
+        <div className={`signup-page-toast ${toast.type ? `signup-page-toast-${toast.type}` : ''}`}>
+          <div className="signup-page-toast-content">
+            {toast.type === 'success' ? (
+              <CheckCircle size={20} />
+            ) : (
+              <XCircle size={20} />
+            )}
+            <span>{toast.message}</span>
+          </div>
+        </div>
+      )}
+
+      <header className="signup-page-header">
+        <div className="signup-page-header-logo">GATHERLY</div>
+        <a href="/" className="signup-page-header-home">Home</a>
       </header>
 
-      <div className="container">
-        <div className="form-container">
-          <h1>CREATE NEW ACCOUNT</h1>
+      <div className="signup-page-form">
+        <div className="signup-page-form-container">
+          <h1 className="signup-page-form-title">CREATE NEW ACCOUNT</h1>
 
           <form onSubmit={handleSubmit}>
-            <div className="input-group">
-              <label htmlFor="firstName">First Name</label>
-              <input type="text" name="firstName" placeholder="Enter your First Name" value={formData.firstName} onChange={handleChange} required />
-              {errors.firstName && <p className="error">⚠ {errors.firstName}</p>}
+            <div className="signup-page-form-input">
+              <label htmlFor="firstName" className="signup-page-form-input-label">First Name</label>
+              <input 
+                type="text" 
+                name="firstName" 
+                className="signup-page-form-input-field"
+                placeholder="Enter your First Name" 
+                value={formData.firstName} 
+                onChange={handleChange} 
+              />
             </div>
 
-            <div className="input-group">
-              <label htmlFor="lastName">Last Name</label>
-              <input type="text" name="lastName" placeholder="Enter your Last Name" value={formData.lastName} onChange={handleChange} required />
-              {errors.lastName && <p className="error">⚠ {errors.lastName}</p>}
+            <div className="signup-page-form-input">
+              <label htmlFor="lastName" className="signup-page-form-input-label">Last Name</label>
+              <input 
+                type="text" 
+                name="lastName" 
+                className="signup-page-form-input-field"
+                placeholder="Enter your Last Name" 
+                value={formData.lastName} 
+                onChange={handleChange} 
+              />
             </div>
 
-            <div className="input-group">
-              <label htmlFor="email">Email</label>
-              <input type="email" name="email" placeholder="Enter your Email" value={formData.email} onChange={handleChange} required />
-              {errors.email && <p className="error">⚠ {errors.email}</p>}
+            <div className="signup-page-form-input">
+              <label htmlFor="email" className="signup-page-form-input-label">Email</label>
+              <input 
+                type="email" 
+                name="email" 
+                className="signup-page-form-input-field"
+                placeholder="Enter your Email" 
+                value={formData.email} 
+                onChange={handleChange} 
+              />
             </div>
 
-            <div className="input-group">
-              <label htmlFor="password">Password</label>
-              <input type="password" name="password" placeholder="Enter your Password" value={formData.password} onChange={handleChange} required />
-              {errors.password && <p className="error">⚠ {errors.password}</p>}
+            <div className="signup-page-form-input">
+              <label htmlFor="password" className="signup-page-form-input-label">Password</label>
+              <input 
+                type="password" 
+                name="password" 
+                className="signup-page-form-input-field"
+                placeholder="Enter your Password" 
+                value={formData.password} 
+                onChange={handleChange} 
+              />
             </div>
 
-            <div className="input-group">
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <input type="password" name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} required />
-              {errors.confirmPassword && <p className="error">⚠ {errors.confirmPassword}</p>}
+            <div className="signup-page-form-input">
+              <label htmlFor="confirmPassword" className="signup-page-form-input-label">Confirm Password</label>
+              <input 
+                type="password" 
+                name="confirmPassword" 
+                className="signup-page-form-input-field"
+                placeholder="Confirm Password" 
+                value={formData.confirmPassword} 
+                onChange={handleChange} 
+              />
             </div>
 
-            <div className="input-group terms">
-              <input type="checkbox" name="termsAccepted" checked={formData.termsAccepted} onChange={handleChange} required />
-              <label>
-                I agree to the <a href="/terms" target="_blank">Terms & Conditions</a>
+            <div className="signup-page-form-input-terms">
+              <input 
+                type="checkbox" 
+                name="termsAccepted" 
+                className="signup-page-form-input-terms-checkbox"
+                checked={formData.termsAccepted} 
+                onChange={handleChange} 
+              />
+              <label className="signup-page-form-input-terms-label">
+                I agree to the <a href="/terms" target="_blank" className="signup-page-form-input-terms-link">Terms & Conditions</a>
               </label>
-              {errors.termsAccepted && <p className="error">⚠ {errors.termsAccepted}</p>}
             </div>
 
-            <button type="submit" className="submit-btn">Sign up</button>
+            <button type="submit" className="signup-page-form-submit">Sign up</button>
           </form>
 
-          <div className="account-link">
-            <p>Already have an account? <a href="/login">Login</a></p>
+          <div className="signup-page-form-account-link">
+            <p>Already have an account? <a href="/login" className="signup-page-form-account-link-text">Login</a></p>
           </div>
         </div>
       </div>
 
-      <div className="contact-info">
+      <div className="signup-page-contact">
         <p>📞 Phone: +123 456 7890</p>
         <p>✉ E-Mail: hello@gatherly.com</p>
       </div>

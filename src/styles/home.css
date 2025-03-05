@@ -1,0 +1,232 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  :root {
+    --navy: #697986;
+    --teal: #567d8c;
+    --beige: #f5f0e6;
+    --sky-blue: #b0c4de;
+    --white: #ffffff;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: var(--navy);
+    background-color: var(--white);
+  }
+  
+  /* Header Styling */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background-color: var(--white);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--navy);
+    letter-spacing: 2px;
+  }
+  
+  .nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    color: var(--teal);
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: var(--navy);
+  }
+  
+  /* Background Section */
+  .background {
+    position: relative;
+    height: 80vh;
+    background-color: var(--sky-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .lined-frame {
+    border: 3px solid var(--navy);
+    padding: 3rem;
+    text-align: center;
+    background-color: rgba(255,255,255,0.9);
+  }
+  
+  .content {
+    color: var(--navy);
+  }
+  
+  .title {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    letter-spacing: 3px;
+  }
+  
+  .subtitle-text {
+    color: var(--teal);
+    letter-spacing: 5px;
+  }
+  
+  .cta-button {
+    margin-top: 2rem;
+    padding: 12px 24px;
+    background-color: var(--navy);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cta-button:hover {
+    background-color: var(--teal);
+  }
+  
+  /* Hero Section */
+  .hero {
+    padding: 5rem 5%;
+    background-color: var(--beige);
+  }
+  
+  .hero-content {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+  
+  .hero-image img {
+    background-image: url('/assets/images/table.jpg');
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+  
+  .hero-text h1 {
+    color: var(--navy);
+    margin-bottom: 1rem;
+  }
+  
+  .stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  
+  /* Services Section */
+  .services {
+    padding: 5rem 5%;
+    text-align: center;
+    background-color: var(--white);
+  }
+  
+  .services h2 {
+    color: var(--navy);
+    margin-bottom: 3rem;
+  }
+  
+  .service-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .service {
+    flex-basis: 250px;
+    padding: 2rem;
+    border: 2px solid var(--sky-blue);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .service:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+  
+  .service.active {
+    background-color: var(--sky-blue);
+    color: var(--white);
+  }
+  
+  .service .icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  
+  /* Footer Styling */
+  .footer {
+    background-color: var(--navy);
+    color: var(--white);
+    padding: 3rem 5%;
+  }
+  
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .footer-about h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .footer-links ul,
+  .footer-about ul {
+    list-style: none;
+  }
+  
+  .footer-links a,
+  .footer-socials a {
+    color: var(--sky-blue);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-links a:hover,
+  .footer-socials a:hover {
+    color: var(--white);
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--teal);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .header,
+    .nav,
+    .hero-content,
+    .service-container,
+    .footer-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .nav {
+      margin-top: 1rem;
+    }
+  
+    .hero-image img {
+      max-width: 100%;
+    }
+  }

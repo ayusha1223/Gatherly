@@ -14,7 +14,12 @@ import Booking from "./components/private/booking";
 import "./styles/booking.css";
 import JoinEvent from './components/private/JoinEvent';
 import "./styles/joinevent.css";
-
+import Ticket from './components/private/tickets';
+import "./styles/ticket.css";
+import Admin from './components/private/AdminDashboard';
+import "./styles/admindashboard.css";
+import HomePage from './components/public/Homepage';
+import "./styles/home.css";
 
 function App() {
   return (
@@ -23,8 +28,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/join" element={<JoinEvent />} />
+        <Route path="/ticket" element={<Ticket />} />
+        <Route path="/admin" element={<Admin />} />
       
       </Routes>
     </Router>
